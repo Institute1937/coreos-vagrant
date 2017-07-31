@@ -65,11 +65,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.box = "coreos-alpha"
   config.vm.box_url = "https://alpha.release.core-os.net/amd64-usr/current/coreos_production_vagrant_virtualbox.json"
-<<<<<<< HEAD
   config.vm.network "forwarded_port", guest: 8080, host: 9947
-=======
-
->>>>>>> b12b30d1bedaec588477645698b54a310be3a59e
   ["vmware_fusion", "vmware_workstation"].each do |vmware|
     config.vm.provider vmware do |v, override|
       override.vm.box_url = "https://alpha.release.core-os.net/amd64-usr/current/coreos_production_vagrant_vmware_fusion.json"
@@ -146,7 +142,6 @@ Vagrant.configure("2") do |config|
       config.ignition.ip = ip
 
       # Uncomment below to enable NFS for sharing the host machine into the coreos-vagrant VM.
-<<<<<<< HEAD
       config.vm.synced_folder ".", "/home/core/share", id: "core", :nfs => true, :mount_options => ['nolock,vers=3,udp']
       $shared_folders.each_with_index do |(host_folder, guest_folder), index|
         config.vm.synced_folder host_folder.to_s, guest_folder.to_s, id: "core-share%02d" % index, nfs: true, mount_options: ['nolock,vers=3,udp']
@@ -157,16 +152,7 @@ Vagrant.configure("2") do |config|
       config.vm.provision :shell, :path => "./provision.sh"
      
       if $share_home
-        # config.vm.synced_folder ENV['HOME'], ENV['HOME'], id: "home", :nfs => true, :mount_options => ['nolock,vers=3,udp']
-=======
-      #config.vm.synced_folder ".", "/home/core/share", id: "core", :nfs => true, :mount_options => ['nolock,vers=3,udp']
-      $shared_folders.each_with_index do |(host_folder, guest_folder), index|
-        config.vm.synced_folder host_folder.to_s, guest_folder.to_s, id: "core-share%02d" % index, nfs: true, mount_options: ['nolock,vers=3,udp']
-      end
-
-      if $share_home
         config.vm.synced_folder ENV['HOME'], ENV['HOME'], id: "home", :nfs => true, :mount_options => ['nolock,vers=3,udp']
->>>>>>> b12b30d1bedaec588477645698b54a310be3a59e
       end
 
       # This shouldn't be used for the virtualbox provider (it doesn't have any effect if it is though)
